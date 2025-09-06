@@ -3,79 +3,101 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hotel Reservation System</title>
+    <title>Hospital Management System</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
     <div class="container">
         <header class="header">
-            <h1><i class="fas fa-hotel"></i> Hotel Management System</h1>
-            <p>Manage your hotel reservations efficiently</p>
+            <h1><i class="fas fa-hospital"></i> Hospital Management System</h1>
+            <p>Efficient healthcare management at your fingertips</p>
         </header>
 
         <nav class="navigation">
-            <button class="nav-btn active" data-section="reserve">
-                <i class="fas fa-plus-circle"></i> Reserve Room
+            <button class="nav-btn active" data-section="add-patient">
+                <i class="fas fa-user-plus"></i> Add Patient
             </button>
-            <button class="nav-btn" data-section="view">
-                <i class="fas fa-list"></i> View Reservations
+            <button class="nav-btn" data-section="view-patients">
+                <i class="fas fa-users"></i> View Patients
             </button>
-            <button class="nav-btn" data-section="search">
-                <i class="fas fa-search"></i> Find Room
+            <button class="nav-btn" data-section="view-doctors">
+                <i class="fas fa-user-md"></i> View Doctors
             </button>
-            <button class="nav-btn" data-section="update">
-                <i class="fas fa-edit"></i> Update Reservation
+            <button class="nav-btn" data-section="book-appointment">
+                <i class="fas fa-calendar-plus"></i> Book Appointment
             </button>
-            <button class="nav-btn" data-section="delete">
-                <i class="fas fa-trash"></i> Delete Reservation
+            <button class="nav-btn" data-section="view-appointments">
+                <i class="fas fa-calendar-check"></i> View Appointments
             </button>
         </nav>
 
         <main class="main-content">
-            <!-- Reserve Room Section -->
-            <section id="reserve" class="section active">
+            <!-- Add Patient Section -->
+            <section id="add-patient" class="section active">
                 <div class="card">
-                    <h2><i class="fas fa-bed"></i> Reserve a Room</h2>
-                    <form id="reserveForm" class="form">
-                        <div class="form-group">
-                            <label for="guestName">Guest Name</label>
-                            <input type="text" id="guestName" name="guestName" required>
+                    <h2><i class="fas fa-user-plus"></i> Add New Patient</h2>
+                    <form id="addPatientForm" class="form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="patientName">Patient Name</label>
+                                <input type="text" id="patientName" name="patientName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="patientAge">Age</label>
+                                <input type="number" id="patientAge" name="patientAge" min="1" max="120" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="patientGender">Gender</label>
+                                <select id="patientGender" name="patientGender" required>
+                                    <option value="">Select Gender</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="patientPhone">Phone Number</label>
+                                <input type="tel" id="patientPhone" name="patientPhone" required>
+                            </div>
                         </div>
                         <div class="form-group">
-                            <label for="roomNumber">Room Number</label>
-                            <input type="number" id="roomNumber" name="roomNumber" min="1" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="contactNumber">Contact Number</label>
-                            <input type="tel" id="contactNumber" name="contactNumber" required>
+                            <label for="patientAddress">Address</label>
+                            <textarea id="patientAddress" name="patientAddress" rows="3" required></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary">
-                            <i class="fas fa-save"></i> Reserve Room
+                            <i class="fas fa-save"></i> Add Patient
                         </button>
                     </form>
                 </div>
             </section>
 
-            <!-- View Reservations Section -->
-            <section id="view" class="section">
+            <!-- View Patients Section -->
+            <section id="view-patients" class="section">
                 <div class="card">
-                    <h2><i class="fas fa-table"></i> Current Reservations</h2>
-                    <button id="refreshBtn" class="btn btn-secondary">
-                        <i class="fas fa-sync-alt"></i> Refresh
-                    </button>
+                    <h2><i class="fas fa-users"></i> Patient Records</h2>
+                    <div class="table-controls">
+                        <button id="refreshPatientsBtn" class="btn btn-secondary">
+                            <i class="fas fa-sync-alt"></i> Refresh
+                        </button>
+                        <input type="text" id="patientSearch" placeholder="Search patients..." class="search-input">
+                    </div>
                     <div class="table-container">
-                        <table id="reservationsTable" class="table">
+                        <table id="patientsTable" class="table">
                             <thead>
                                 <tr>
-                                    <th>Reservation ID</th>
-                                    <th>Guest Name</th>
-                                    <th>Room Number</th>
-                                    <th>Contact Number</th>
-                                    <th>Reservation Date</th>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Age</th>
+                                    <th>Gender</th>
+                                    <th>Phone</th>
+                                    <th>Address</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
-                            <tbody id="reservationsBody">
+                            <tbody id="patientsBody">
                                 <!-- Data will be populated by JavaScript -->
                             </tbody>
                         </table>
@@ -83,70 +105,134 @@
                 </div>
             </section>
 
-            <!-- Search Room Section -->
-            <section id="search" class="section">
+            <!-- View Doctors Section -->
+            <section id="view-doctors" class="section">
                 <div class="card">
-                    <h2><i class="fas fa-user-search"></i> Find Room by Guest</h2>
-                    <form id="searchForm" class="form">
+                    <h2><i class="fas fa-user-md"></i> Doctor Directory</h2>
+                    <div class="table-controls">
+                        <button id="refreshDoctorsBtn" class="btn btn-secondary">
+                            <i class="fas fa-sync-alt"></i> Refresh
+                        </button>
+                        <input type="text" id="doctorSearch" placeholder="Search doctors..." class="search-input">
+                    </div>
+                    <div class="table-container">
+                        <table id="doctorsTable" class="table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Specialization</th>
+                                    <th>Phone</th>
+                                    <th>Email</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="doctorsBody">
+                                <!-- Data will be populated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Book Appointment Section -->
+            <section id="book-appointment" class="section">
+                <div class="card">
+                    <h2><i class="fas fa-calendar-plus"></i> Book Appointment</h2>
+                    <form id="bookAppointmentForm" class="form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="appointmentPatientId">Patient ID</label>
+                                <input type="number" id="appointmentPatientId" name="appointmentPatientId" min="1" required>
+                                <small class="form-help">Enter the patient's ID number</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="appointmentDoctorId">Doctor ID</label>
+                                <input type="number" id="appointmentDoctorId" name="appointmentDoctorId" min="1" required>
+                                <small class="form-help">Enter the doctor's ID number</small>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="appointmentDate">Appointment Date</label>
+                                <input type="date" id="appointmentDate" name="appointmentDate" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="appointmentTime">Appointment Time</label>
+                                <input type="time" id="appointmentTime" name="appointmentTime" required>
+                            </div>
+                        </div>
                         <div class="form-group">
-                            <label for="searchGuestName">Guest Name</label>
-                            <input type="text" id="searchGuestName" name="searchGuestName" required>
+                            <label for="appointmentReason">Reason for Visit</label>
+                            <textarea id="appointmentReason" name="appointmentReason" rows="3" placeholder="Brief description of the reason for the appointment"></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary">
-                            <i class="fas fa-search"></i> Search
+                            <i class="fas fa-calendar-check"></i> Book Appointment
                         </button>
                     </form>
-                    <div id="searchResult" class="result-container"></div>
+                    
+                    <div id="patientDoctorInfo" class="info-panel" style="display: none;">
+                        <div class="info-section">
+                            <h3>Patient Information</h3>
+                            <div id="patientInfo"></div>
+                        </div>
+                        <div class="info-section">
+                            <h3>Doctor Information</h3>
+                            <div id="doctorInfo"></div>
+                        </div>
+                    </div>
                 </div>
             </section>
 
-            <!-- Update Reservation Section -->
-            <section id="update" class="section">
+            <!-- View Appointments Section -->
+            <section id="view-appointments" class="section">
                 <div class="card">
-                    <h2><i class="fas fa-edit"></i> Update Reservation</h2>
-                    <form id="updateForm" class="form">
-                        <div class="form-group">
-                            <label for="updateReservationId">Reservation ID</label>
-                            <input type="number" id="updateReservationId" name="updateReservationId" min="1" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="updateGuestName">New Guest Name</label>
-                            <input type="text" id="updateGuestName" name="updateGuestName" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="updateRoomNumber">New Room Number</label>
-                            <input type="number" id="updateRoomNumber" name="updateRoomNumber" min="1" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="updateContactNumber">New Contact Number</label>
-                            <input type="tel" id="updateContactNumber" name="updateContactNumber" required>
-                        </div>
-                        <button type="submit" class="btn btn-warning">
-                            <i class="fas fa-save"></i> Update Reservation
+                    <h2><i class="fas fa-calendar-check"></i> Appointment Schedule</h2>
+                    <div class="table-controls">
+                        <button id="refreshAppointmentsBtn" class="btn btn-secondary">
+                            <i class="fas fa-sync-alt"></i> Refresh
                         </button>
-                    </form>
-                </div>
-            </section>
-
-            <!-- Delete Reservation Section -->
-            <section id="delete" class="section">
-                <div class="card">
-                    <h2><i class="fas fa-trash-alt"></i> Delete Reservation</h2>
-                    <form id="deleteForm" class="form">
-                        <div class="form-group">
-                            <label for="deleteReservationId">Reservation ID</label>
-                            <input type="number" id="deleteReservationId" name="deleteReservationId" min="1" required>
-                        </div>
-                        <button type="submit" class="btn btn-danger">
-                            <i class="fas fa-trash"></i> Delete Reservation
-                        </button>
-                    </form>
+                        <input type="date" id="appointmentDateFilter" class="date-filter">
+                        <select id="appointmentStatusFilter" class="status-filter">
+                            <option value="">All Appointments</option>
+                            <option value="scheduled">Scheduled</option>
+                            <option value="completed">Completed</option>
+                            <option value="cancelled">Cancelled</option>
+                        </select>
+                    </div>
+                    <div class="table-container">
+                        <table id="appointmentsTable" class="table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Patient</th>
+                                    <th>Doctor</th>
+                                    <th>Date</th>
+                                    <th>Time</th>
+                                    <th>Reason</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="appointmentsBody">
+                                <!-- Data will be populated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </section>
         </main>
 
         <!-- Success/Error Messages -->
         <div id="messageContainer" class="message-container"></div>
+
+        <!-- Modal for editing/viewing details -->
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <div id="modalBody"></div>
+            </div>
+        </div>
     </div>
 
     <script src="script.js"></script>

@@ -1,180 +1,246 @@
-<<<<<<< HEAD
-## Getting Started
+# Hospital Management System
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+A complete Hospital Management System with both backend (Java + MySQL) and frontend (HTML/CSS/JavaScript) components.
 
-## Folder Structure
+## 🏥 Features
 
-The workspace contains two folders by default, where:
+### Backend Features (Java)
+- **Patient Management**: Add and view patient records
+- **Doctor Management**: View doctor information and specializations
+- **Appointment Booking**: Schedule appointments with availability checking
+- **Appointment Viewing**: Display all scheduled appointments
+- **Database Integration**: Full MySQL database connectivity
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
+### Frontend Features (Web Interface)
+- **Modern Web Interface**: Responsive design for all devices
+- **Patient Management**: Add, view, edit, and delete patient records
+- **Doctor Directory**: View doctor information and specializations
+- **Appointment Scheduling**: Book appointments with real-time validation
+- **Appointment Management**: View, complete, and cancel appointments
+- **Search & Filter**: Find patients, doctors, and appointments quickly
+- **Real-time Validation**: Form validation and error handling
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
+## 📁 Project Structure
 
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
+```
+Hospital Management System/
+├── Frontend/
+│   ├── index.html              # Main web interface
+│   ├── styles.css              # Modern responsive styling
+│   └── script.js               # Interactive functionality
+├── Backend/
+│   └── HospitalManagementSystem/
+│       ├── HospitalManagementSystem.java  # Main application
+│       ├── Patient.java        # Patient management class
+│       └── Doctor.java         # Doctor management class
+├── Scripts/
+│   ├── compile-and-run.sh      # Unix/Linux/macOS compilation script
+│   ├── compile-and-run.bat     # Windows compilation script
+│   └── start-web.sh            # Web server launcher
+├── Database/
+│   └── hospital_setup.sql      # Database schema and sample data
+└── README.md                   # This file
+```
 
-## Dependency Management
-
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
-=======
-# Hotel Reservation System
-
-A complete hotel reservation management system with both backend (Java + MySQL) and frontend (HTML/CSS/JavaScript) components.
-
-## Features
-
-- **Reserve a room** - Add new guest reservations
-- **View all reservations** - Display current reservations in a responsive table
-- **Find room by guest** - Search for room assignments by guest name
-- **Update existing reservations** - Modify reservation details
-- **Delete reservations** - Remove reservations with confirmation
-- **Modern web interface** - Responsive design with intuitive navigation
-- **Real-time validation** - Form validation and error handling
-
-## Components
-
-### Backend (Java + MySQL)
-- **HotelReservationSystem.java** - Main Java application with database connectivity
-- **setup_database.sql** - Database schema and sample data
-
-### Frontend (Web Interface)
-- **index.html** - Main web interface
-- **styles.css** - Modern responsive styling
-- **script.js** - Interactive functionality and form handling
-
-## Prerequisites
+## 🚀 Prerequisites
 
 ### For Backend:
-1. **Java Development Kit (JDK)** - Version 8 or higher
-2. **MySQL Server** - Running on localhost:3306
-3. **MySQL JDBC Driver** - mysql-connector-java
+- **Java Development Kit (JDK)** - Version 8 or higher
+- **MySQL Server** - Running on localhost:3306
+- **MySQL JDBC Driver** - mysql-connector-java
 
 ### For Frontend:
-1. **Web Browser** - Any modern browser (Chrome, Firefox, Safari, Edge)
-2. **Local Web Server** (optional) - For better development experience
+- **Web Browser** - Any modern browser (Chrome, Firefox, Safari, Edge)
+- **Local Web Server** (optional) - For better development experience
 
-## Setup Instructions
+## 🔧 Setup Instructions
 
 ### 1. Database Setup
 
-First, make sure MySQL is running on your system. Then execute the database setup script:
+First, ensure MySQL is running on your system, then execute the database setup:
 
 ```bash
-mysql -u root -p < setup_database.sql
+mysql -u root -p < hospital_setup.sql
 ```
 
-Or manually run the SQL commands in `setup_database.sql` using MySQL Workbench or command line.
+Or manually run the SQL commands using MySQL Workbench or command line.
 
-### 2. Download MySQL JDBC Driver
+### 2. Backend Setup (Java)
 
-Download the MySQL Connector/J from the official MySQL website:
-- Visit: https://dev.mysql.com/downloads/connector/j/
-- Download the latest version
-- Extract the JAR file (mysql-connector-java-x.x.x.jar)
+#### Download MySQL JDBC Driver
+1. Visit: https://dev.mysql.com/downloads/connector/j/
+2. Download the latest version
+3. Extract the JAR file (mysql-connector-java-x.x.x.jar)
 
-### 3. Compile and Run
-
-#### Option 1: Using Command Line with JDBC Driver
-
-```bash
-# Compile with JDBC driver in classpath
-javac -cp ".:mysql-connector-java-8.0.33.jar" HotelReservationSystem.java
-
-# Run with JDBC driver in classpath
-java -cp ".:mysql-connector-java-8.0.33.jar" HotelReservationSystem
-```
-
-#### Option 2: Using IDE
-
-1. Add the MySQL JDBC driver JAR to your project's classpath
-2. Compile and run `HotelReservationSystem.java`
-
-## Configuration
-
-Before running the application, update the database credentials in `HotelReservationSystem.java`:
+#### Update Database Credentials
+Before running, update the database credentials in `HospitalManagementSystem.java`:
 
 ```java
-static final String url = "jdbc:mysql://localhost:3306/hotel_db";
-static final String user = "root";
-static final String password = "your_password_here";
+private static String url = "jdbc:mysql://localhost:3306/hospital";
+private static String username = "root";
+private static String password = "your_password_here";
 ```
 
-## Database Schema
+#### Easy Setup with Scripts
 
-The application uses a single table called `reservations`:
-
-```sql
-CREATE TABLE reservations (
-    reservation_id INT AUTO_INCREMENT PRIMARY KEY,
-    guest_name VARCHAR(100) NOT NULL,
-    room_number INT NOT NULL,
-    contact_number VARCHAR(20) NOT NULL,
-    reservation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-```
-
-## Usage
-
-### Backend (Console Application)
-1. Run the Java application
-2. Choose from the menu options:
-   - **1**: Reserve a new room
-   - **2**: View all current reservations
-   - **3**: Get room number by guest name
-   - **4**: Update an existing reservation
-   - **5**: Delete a reservation
-   - **0**: Exit the system
-
-### Frontend (Web Interface)
-1. Open `index.html` in your web browser
-2. Use the navigation buttons to access different features:
-   - **Reserve Room**: Add new reservations with form validation
-   - **View Reservations**: See all current reservations in a table
-   - **Find Room**: Search for room assignments by guest name
-   - **Update Reservation**: Modify existing reservation details
-   - **Delete Reservation**: Remove reservations with confirmation dialogs
-
-### Running the Web Interface
-
-**Option 1: Direct File Access**
+**For Unix/Linux/macOS:**
 ```bash
-# Simply open the HTML file in your browser
-open index.html  # macOS
-# or double-click index.html in file explorer
+# This script will download JDBC driver, compile, and run
+./compile-and-run.sh
 ```
 
-**Option 2: Local Web Server (Recommended)**
+**For Windows:**
+```cmd
+# This script will compile and run (you need to download JDBC driver manually)
+compile-and-run.bat
+```
+
+#### Manual Compilation
 ```bash
-# Using Python (if installed)
+# Download MySQL JDBC driver first, then:
+# Compile with JDBC driver in classpath
+javac -cp ".:lib/mysql-connector-java-8.0.33.jar" HospitalManagementSystem/*.java
+
+# Run with JDBC driver in classpath
+java -cp ".:lib/mysql-connector-java-8.0.33.jar" HospitalManagementSystem.HospitalManagementSystem
+```
+
+### 3. Frontend Setup (Web Interface)
+
+#### Option 1: Direct Browser Access
+Simply open `index.html` in your web browser by double-clicking it.
+
+#### Option 2: Local Web Server (Recommended)
+```bash
+# Using Python
 python3 -m http.server 8000
 # Then visit: http://localhost:8000
 
-# Using Node.js (if installed)
+# Using Node.js
 npx serve .
 # Or install globally: npm install -g serve
 ```
 
-## Troubleshooting
+## 📊 Database Schema
 
-### Common Issues
+The system uses three main tables:
 
+### Patients Table
+```sql
+CREATE TABLE patients (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    age INT NOT NULL,
+    gender VARCHAR(10) NOT NULL
+);
+```
+
+### Doctors Table
+```sql
+CREATE TABLE doctors (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    specialization VARCHAR(255) NOT NULL
+);
+```
+
+### Appointments Table
+```sql
+CREATE TABLE appointments (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    patient_id INT NOT NULL,
+    doctor_id INT NOT NULL,
+    appointment_date DATE NOT NULL,
+    FOREIGN KEY (patient_id) REFERENCES patients(id),
+    FOREIGN KEY (doctor_id) REFERENCES doctors(id)
+);
+```
+
+## 💻 Usage
+
+### Backend (Console Application)
+1. Run the Java application
+2. Choose from the menu options:
+   - **1**: Add a new patient
+   - **2**: View all patients
+   - **3**: View all doctors
+   - **4**: Book an appointment
+   - **5**: View all appointments
+   - **6**: Exit the system
+
+### Frontend (Web Interface)
+1. Open the web interface in your browser
+2. Use the navigation buttons to access different features:
+   - **Add Patient**: Register new patients with validation
+   - **View Patients**: Browse, search, edit, and delete patient records
+   - **View Doctors**: Browse doctor directory and specializations
+   - **Book Appointment**: Schedule appointments with availability checking
+   - **View Appointments**: Manage appointment schedule
+
+## ✨ Key Features
+
+### Backend Features
+- **Robust Database Integration**: Full CRUD operations with MySQL
+- **Input Validation**: Comprehensive data validation and error handling
+- **Appointment Conflicts**: Prevents double-booking of doctors
+- **Clean Architecture**: Separated classes for better maintainability
+
+### Frontend Features
+- **Responsive Design**: Works perfectly on desktop, tablet, and mobile
+- **Real-time Validation**: Instant feedback on form inputs
+- **Search & Filter**: Quick search across all data
+- **Modern UI**: Professional healthcare-focused design
+- **Interactive Tables**: Sortable and searchable data tables
+- **Modal Dialogs**: User-friendly edit and confirmation dialogs
+
+## 🔍 Troubleshooting
+
+### Common Backend Issues
 1. **MySQL Connection Error**: 
    - Ensure MySQL server is running
-   - Check username/password credentials
-   - Verify database name exists
+   - Verify database credentials
+   - Check if hospital database exists
 
 2. **ClassNotFoundException**: 
-   - Make sure MySQL JDBC driver is in the classpath
-   - Download the correct version of mysql-connector-java
+   - Ensure MySQL JDBC driver is in classpath
+   - Download correct version of mysql-connector-java
 
 3. **Access Denied Error**:
-   - Check MySQL user permissions
-   - Ensure the user has access to the hotel_db database
+   - Verify MySQL user permissions
+   - Ensure user has access to hospital database
 
-## Dependencies
+### Common Frontend Issues
+1. **Features Not Working**: 
+   - Check browser console for JavaScript errors
+   - Ensure all files are in the same directory
 
-- Java SQL API (java.sql.*)
-- Java Utility Scanner (java.util.Scanner)
-- MySQL Connector/J JDBC Driver
->>>>>>> 26f7801 (Initial project upload from VS Code)
+2. **Styling Issues**: 
+   - Verify styles.css is properly linked
+   - Check for browser compatibility
+
+## 🛡️ Security Features
+
+- **SQL Injection Prevention**: All queries use PreparedStatements
+- **Input Validation**: Comprehensive client and server-side validation
+- **Data Integrity**: Foreign key constraints maintain data consistency
+
+## 🎯 Future Enhancements
+
+- **User Authentication**: Login system for different user roles
+- **Medical Records**: Detailed patient medical history
+- **Billing System**: Generate and manage medical bills
+- **Reports**: Generate various medical and administrative reports
+- **Notifications**: Email/SMS notifications for appointments
+- **API Integration**: RESTful API for mobile app integration
+
+## 📞 Support
+
+For any issues or questions:
+1. Check the troubleshooting section
+2. Verify all prerequisites are installed
+3. Ensure database is properly set up
+4. Check that all files are in the correct locations
+
+## 📝 License
+
+This project is created for educational purposes. Feel free to modify and enhance according to your needs.
